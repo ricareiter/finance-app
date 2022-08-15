@@ -8,11 +8,7 @@
     <p>Balance</p>
     <p class="text-2x1 font-bold"><%= number_to_currency @balance %></p>
     </div>
-  </div>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Movements</h1>
-    <%= link_to 'New movement', new_movement_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <%= link_to 'New movement', new_movement_path, class: "rounded-lg p-6 bg-blue-600 text-white block font-medium text-center" %>
   </div>
 
   <div id="movements" class="min-w-full">
