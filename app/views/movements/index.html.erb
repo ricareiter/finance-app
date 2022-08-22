@@ -9,9 +9,13 @@
     <p class="text-2x1 font-bold"><%= number_to_currency @balance %></p>
     </div>
     <%= link_to 'New movement', new_movement_path, class: "rounded-lg p-6 bg-blue-600 text-white block font-medium text-center" %>
+    <%= link_to destroy_user_session_path, method: :delete, class: "rounded-lg p-6 bg-blue-600 text-white block font-medium text-center" do %>
+      <span> <%= current_user.email %> </span><br>
+      <span>Logout</span>
+      <% end %>
   </div>
 
-  <div id="movements" class="min-w-full">
+  <div id="movements" class="grid grid-cols-1 gap-4 min-w-full">
     <%= render @movements %>
   </div>
 </div>

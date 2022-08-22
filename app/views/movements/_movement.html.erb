@@ -1,22 +1,13 @@
-<div id="<%= dom_id movement %>" class="p-6 rounded-lg shadow-lg bg-white">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Date:</strong>
-    <%= movement.date %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
+<div id="<%= dom_id movement %>" class="p-6 rounded-lg shadow-lg bg-white flex <%= movement.debt? ? 'text-red-700' : 'text-green-700' %>">
+  <span class="mr-2">
+    <%= movement.date  %>
+  </span>
+  <span class="mr-2 flex-grow">
     <%= movement.description %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Value:</strong>
-    <%= movement.value %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Type:</strong>
-    <%= movement.typeof %>
-  </p>
+  </span>
+  <span>
+    <%= number_to_currency movement.value %>
+  </span>
+  <span>
   
 </div>

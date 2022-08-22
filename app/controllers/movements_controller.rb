@@ -1,48 +1,29 @@
 class MovementsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_movement, only: %i[ show edit update destroy ]
 
   # GET /movements or /movements.json
   def index
-    @movements = Movement.all
-    @balance = Movement.balance
-  end
-
-  # GET /movements/1 or /movements/1.json
-  def show
+    @movements = collection.order(date: :desc)
+    @balance = collection.balance
   end
 
   # GET /movements/new
   def new
-    @movement = Movement.new
+    @movement = collection.new
   end
 
-  # GET /movements/1/edit
-  def edit
-  end
 
   # POST /movements or /movements.json
   def create
-    @movement = Movement.new(movement_params)
+    @movement = collection.new(movement_params)
 
     respond_to do |format|
       if @movement.save
-        format.html { redirect_to movement_url(@movement), notice: "Movement was successfully created." }
+        format.html { redirect_to movements_url, notice: "Movement was successfully created." }
         format.json { render :show, status: :created, location: @movement }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @movement.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /movements/1 or /movements/1.json
-  def update
-    respond_to do |format|
-      if @movement.update(movement_params)
-        format.html { redirect_to movement_url(@movement), notice: "Movement was successfully updated." }
-        format.json { render :show, status: :ok, location: @movement }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @movement.errors, status: :unprocessable_entity }
       end
     end
@@ -59,9 +40,14 @@ class MovementsController < ApplicationController
   end
 
   private
+  
+    def collection
+      current_user.movements
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_movement
-      @movement = Movement.find(params[:id])
+      @movement = collection.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,5 +1,7 @@
 class Movement < ApplicationRecord
     enum :typeof, {debt: 'debt', credit: 'credit'}
+
+    belongs_to :user
     
     validates :date, comparison: {less_than_or_equal_to: proc {Date.current}}
     validates :description, presence: true, length: {maximum: 150}
