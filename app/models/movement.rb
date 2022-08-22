@@ -10,14 +10,15 @@ class Movement < ApplicationRecord
     validate :balance_validate
 
     def self.balance 
-        Movement.credit.sum(:value) - Movement.debt.sum(:value)
+        self.credit.sum(:value) - self.debt.sum(:value)
     end
 
     private
 
     def balance_validate
+        return unless user
         return if credit?
-        return if value.to_f <= Movement.balance
+        return if value.to_f <= user.movements.balance
         errors.add :value, "Not enough credit"
     end
 end
